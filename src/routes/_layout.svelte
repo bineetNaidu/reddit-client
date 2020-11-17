@@ -5,7 +5,6 @@
 <style>
   main {
     position: relative;
-    max-width: 56em;
     background-color: white;
     padding: 2em;
     margin: 0 auto;
@@ -22,6 +21,8 @@
     rel="stylesheet"
     integrity="sha384-CuOF+2SnTUfTwSZjCXf01h7uYhfOBuxIhGKPbfEJ3+FqH/s6cIFN9bGr1HmAg4fQ"
     crossorigin="anonymous" />
+
+  <title>Reddit-Client</title>
 </svelte:head>
 
 <main>

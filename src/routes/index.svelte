@@ -1,47 +1,34 @@
 <script>
+  import { onMount } from 'svelte';
+
+  $: posts = [];
+
+  onMount(async () => {
+    const res = await fetch('https://www.reddit.com/r/all.json');
+    const { data } = await res.json();
+    posts = data.children;
+
+    console.log(posts[1]);
+  });
 </script>
 
 <style>
-  h1,
-  figure,
-  p {
-    text-align: center;
-    margin: 0 auto;
-  }
-
-  h1 {
-    font-size: 2.8em;
-    text-transform: uppercase;
-    font-weight: 700;
-    margin: 0 0 0.5em 0;
-  }
-
-  figure {
-    margin: 0 0 1em 0;
-  }
-
-  p {
-    margin: 1em auto;
-  }
-
-  @media (min-width: 480px) {
-    h1 {
-      font-size: 4em;
-    }
-  }
 </style>
 
-<svelte:head>
-  <title>Sapper project template</title>
-</svelte:head>
-
-<h1>Great success!</h1>
-
-<figure>
-  <figcaption>Have fun with Sapper!</figcaption>
-</figure>
-
-<p>
-  <strong>Try editing this file (src/routes/index.svelte) to test live
-    reloading.</strong>
-</p>
+<div class="row row-cols-1 row-cols-md-4 g-4">
+  {#if posts}
+    {#each posts as { data } (data.id)}
+      <div class="col">
+        <div class="card" style="width: 18rem;">
+          <img
+            src={data.thumbnail || data.url}
+            class="card-img-top"
+            alt={data.thumbnail || data.url} />
+          <div class="card-body">
+            <p class="card-text">{data.title}</p>
+          </div>
+        </div>
+      </div>
+    {/each}
+  {/if}
+</div>
