@@ -20,10 +20,21 @@
     {#each posts as { data } (data.id)}
       <div class="col">
         <div class="card" style="width: 18rem;">
-          <img
-            src={data.thumbnail || data.url}
-            class="card-img-top"
-            alt={data.thumbnail || data.url} />
+          {#if data.is_video}
+            <video controls width="auto" autoplay muted>
+              <track kind="captions" />
+              <source
+                src={data.media.reddit_video.scrubber_media_url || data.media.reddit_video.fallback_url}
+                type="video/mp4" />
+
+              Sorry, your browser doesn't support embedded videos.
+            </video>
+          {:else}
+            <img
+              src={data.thumbnail || data.url}
+              class="card-img-top"
+              alt={data.thumbnail || data.url} />
+          {/if}
           <div class="card-body">
             <p class="card-text">{data.title}</p>
           </div>
