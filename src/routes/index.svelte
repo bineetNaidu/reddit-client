@@ -31,12 +31,13 @@
             </video>
           {:else}
             <img
-              src={data.thumbnail || data.url}
+              src={data.thumbnail || data.url || data.preview.images[0].source.url}
               class="card-img-top"
               alt={data.thumbnail || data.url} />
           {/if}
           <div class="card-body">
             <p class="card-text">{data.title}</p>
+            <a href={data.permalink} class="btn btn-primary">View</a>
           </div>
         </div>
       </div>
