@@ -1,22 +1,33 @@
 <script>
   import { onMount } from 'svelte';
-
+  import Loaders from '../components/Loaders.svelte';
   $: posts = [];
+
+  let loading = true;
 
   onMount(async () => {
     const res = await fetch('https://www.reddit.com/r/all.json');
     const { data } = await res.json();
     posts = data.children;
-
-    console.log(posts[1]);
+    loading = false;
   });
 </script>
 
 <style>
+  .loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+  }
 </style>
 
-<div class="row row-cols-1 row-cols-md-4 g-4">
-  {#if posts}
+{#if loading}
+  <div class="loader">
+    <Loaders />
+  </div>
+{:else}
+  <div class="row row-cols-1 row-cols-md-4 g-4">
     {#each posts as { data } (data.id)}
       <div class="col">
         <div class="card" style="width: 18rem;">
@@ -42,5 +53,5 @@
         </div>
       </div>
     {/each}
-  {/if}
-</div>
+  </div>
+{/if}
