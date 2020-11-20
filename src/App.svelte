@@ -1,10 +1,9 @@
 <script>
   import { onMount } from 'svelte';
-  import Loaders from '../components/Loaders.svelte';
+  import Loaders from './Loaders.svelte';
+  import Navbar from './Navbar.svelte';
   $: posts = [];
-
   let loading = true;
-
   onMount(async () => {
     const res = await fetch('https://www.reddit.com/r/all.json');
     const { data } = await res.json();
@@ -21,6 +20,8 @@
     min-height: 60vh;
   }
 </style>
+
+<Navbar />
 
 {#if loading}
   <div class="loader">
